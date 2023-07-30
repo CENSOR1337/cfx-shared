@@ -1,0 +1,20 @@
+{
+	"name": "@cfx/shared",
+	"main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsc",
+        "watch": "tsc -w",
+		"update": "node ./scripts/update.js",
+        "gen": "node ./scripts/generate.js"
+	},
+	"author": "CENSOR_1337",
+	"license": "MIT",
+	"devDependencies": {
+		"@citizenfx/client": "latest",
+		"@citizenfx/server": "latest",
+		"@types/node": "^20.4.0",
+		"typescript": "^5.1.6"
+	}
+}
