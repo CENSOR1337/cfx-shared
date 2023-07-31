@@ -17,7 +17,7 @@ export class Event {
 		this.eventName = eventName;
 		this.netSafe = isNet;
 		this.once = once;
-		this.listener = (args: any[]) => {
+		this.listener = (...args: any[]) => {
 			listener(...args);
 			if (this.once) this.destroy();
 		};
