@@ -1,6 +1,5 @@
 import { Citizen } from "./Citizen";
-import { isServer } from "./";
-
+import { Vector2, Vector3, Vector4 } from "./utils/";
 export type listenerType = (...args: any[]) => void;
 export interface EventsData {
 	eventName: string;
@@ -27,15 +26,48 @@ export class Event {
 	destroy(): void {
 		Citizen.removeEventListener(this.eventName, this.listener);
 	}
+
+	public static getClassFromArguments(...args: any[]): any[] {
+		const newArgs: any[] = [];
+
+		for (const arg of args) {
+			const obj = this.getObjectClass(arg);
+			newArgs.push(obj);
+		}
+		return newArgs;
+	}
+
+	protected static getObjectClass(obj: any): any {
+		const objType = obj.type;
+		if (!objType) return obj;
+		switch (objType) {
+			case Vector2.type: {
+				return Vector2.create(obj);
+			}
+			case Vector3.type: {
+				return Vector3.create(obj);
+			}
+			case Vector4.type: {
+				return Vector4.create(obj);
+			}
+
+			default: {
+				return obj;
+			}
+		}
+	}
 }
 
 export class Events {
-	public static on(eventName: string, listener: listenerType): Event {
-		return new Event(eventName, listener, isServer, false);
+	public static on(eventName: string, listener: listenerType, once = false): Event {
+		const handler = (...args: any[]) => {
+			listener(...Event.getClassFromArguments(...args));
+		};
+		return new Event(eventName, handler, false, once);
 	}
 
 	public static once(eventName: string, listener: listenerType): Event {
-		return new Event(eventName, listener, isServer, true);
+		return Events.on(eventName, listener, true);
 	}
 
 	public static off(event: Event): void {
