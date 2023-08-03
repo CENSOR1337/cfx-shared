@@ -1,32 +1,12 @@
 import { Citizen } from "./Citizen";
 import { Vector2, Vector3, Vector4 } from "./utils/";
 export type listenerType = (...args: any[]) => void;
-export interface EventsData {
+export interface EventData {
 	eventName: string;
 	listener: listenerType;
 }
 
-export class Event {
-	private eventName: string;
-	private listener: listenerType;
-	private netSafe: boolean;
-	private once: boolean;
-
-	constructor(eventName: string, listener: listenerType, isNet: boolean, once: boolean) {
-		this.eventName = eventName;
-		this.netSafe = isNet;
-		this.once = once;
-		this.listener = (...args: any[]) => {
-			listener(...args);
-			if (this.once) this.destroy();
-		};
-		Citizen.addEventListener(this.eventName, this.listener, this.netSafe);
-	}
-
-	destroy(): void {
-		Citizen.removeEventListener(this.eventName, this.listener);
-	}
-
+export class EventBase {
 	public static getClassFromArguments(...args: any[]): any[] {
 		const newArgs: any[] = [];
 
@@ -58,16 +38,37 @@ export class Event {
 	}
 }
 
-export class Events {
-	public static on(eventName: string, listener: listenerType, once = false): Event {
-		const handler = (...args: any[]) => {
-			listener(...Event.getClassFromArguments(...args));
+export class Event extends EventBase {
+	private eventName: string;
+	private listener: listenerType;
+	private netSafe: boolean;
+	private once: boolean;
+
+	protected constructor(eventName: string, listener: listenerType, isNet: boolean, once: boolean) {
+		super();
+		this.eventName = eventName;
+		this.netSafe = isNet;
+		this.once = once;
+		this.listener = (...args: any[]) => {
+			listener(...args);
+			if (this.once) this.destroy();
 		};
-		return new Event(eventName, handler, false, once);
+		Citizen.addEventListener(this.eventName, this.listener, this.netSafe);
+	}
+
+	destroy(): void {
+		Citizen.removeEventListener(this.eventName, this.listener);
+	}
+
+	public static on(eventName: string, listener: listenerType): Event {
+		const handler = (...args: any[]) => {
+			listener(...this.getClassFromArguments(...args));
+		};
+		return new this(eventName, handler, false, false);
 	}
 
 	public static once(eventName: string, listener: listenerType): Event {
-		return Events.on(eventName, listener, true);
+		return new this(eventName, listener, false, true);
 	}
 
 	public static off(event: Event): void {
