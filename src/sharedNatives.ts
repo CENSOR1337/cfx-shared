@@ -109,15 +109,15 @@ export function addStateBagChangeHandler(keyFilter: string, bagFilter: string, h
 /**
  * Cancels the currently executing event.
  */
-export function cancelEvent(): any { 
+export function cancelEvent(): void { 
 	return _in(0x00000000, 0xfa29d35d); 
 }
 
-export function deleteFunctionReference(referenceIdentity: string): any { 
+export function deleteFunctionReference(referenceIdentity: string): void { 
 	return _in(0x00000000, 0x1e86f206, _ts(referenceIdentity)); 
 }
 
-export function deleteResourceKvp(key: string): any { 
+export function deleteResourceKvp(key: string): void { 
 	return _in(0x00000000, 0x7389b5df, _ts(key)); 
 }
 
@@ -125,7 +125,7 @@ export function duplicateFunctionReference(referenceIdentity: string): string {
 	return _in(0x00000000, 0xf4e2079d, _ts(referenceIdentity), _r, _s); 
 }
 
-export function endFindKvp(handle: number): any { 
+export function endFindKvp(handle: number): void { 
 	return _in(0x00000000, 0xb3210203, handle); 
 }
 
@@ -133,11 +133,11 @@ export function endFindKvp(handle: number): any {
  * Internal function for ensuring an entity has a state bag.
  * @param entity
  */
-export function ensureEntityStateBag(entity: number): any { 
+export function ensureEntityStateBag(entity: number): void { 
 	return _in(0x00000000, 0x3bb78f05, entity); 
 }
 
-export function executeCommand(commandString: string): any { 
+export function executeCommand(commandString: string): void { 
 	return _in(0x00000000, 0x561c060b, _ts(commandString)); 
 }
 
@@ -299,8 +299,8 @@ export function getPlayerWeaponDefenseModifier2(playerId: number): number {
  * ]
  * ```
  */
-export function getRegisteredCommands(): number { 
-	return _in(0x00000000, 0xd4bef069, _r, _ri); 
+export function getRegisteredCommands(): any { 
+	return _in(0x00000000, 0xd4bef069, _r, _ro); 
 }
 
 export function getResourceByFindIndex(findIndex: number): string { 
@@ -355,8 +355,8 @@ export function getResourceState(resourceName: string): string {
  * @param bagName
  * @param key
  */
-export function getStateBagValue(bagName: string, key: string): number { 
-	return _in(0x00000000, 0x637f4c75, _ts(bagName), _ts(key), _r, _ri); 
+export function getStateBagValue(bagName: string, key: string): any { 
+	return _in(0x00000000, 0x637f4c75, _ts(bagName), _ts(key), _r, _ro); 
 }
 
 export function getVehicleHandbrake(vehicle: number): boolean { 
@@ -367,9 +367,9 @@ export function getVehicleSteeringAngle(vehicle: number): number {
 	return _in(0x00000000, 0x1382fcea, vehicle, _r, _rf); 
 }
 
-export function invokeFunctionReference(referenceIdentity: string, argsSerialized: string, argsLength: number, retvalLength: number): [any, any] { 
-	const [retval, retvalLength_out] = _in(0x00000000, 0xe3551879, _ts(referenceIdentity), _ts(argsSerialized), argsLength, _ii(retvalLength), _r, _ri);
-	return [retval as any, retvalLength_out as number]; 
+export function invokeFunctionReference(referenceIdentity: string, argsSerialized: string, argsLength: number, retvalLength: number): [string, number] { 
+	const [retval, retvalLength_out] = _in(0x00000000, 0xe3551879, _ts(referenceIdentity), _ts(argsSerialized), argsLength, _ii(retvalLength), _r, _s);
+	return [retval as string, retvalLength_out as number]; 
 }
 
 export function isAceAllowed(object: string): boolean { 
@@ -414,14 +414,14 @@ export function networkGetEntityOwner(entity: number): number {
  * Scope entry for profiler.
  * @param scopeName
  */
-export function profilerEnterScope(scopeName: string): any { 
+export function profilerEnterScope(scopeName: string): void { 
 	return _in(0x00000000, 0xc795a4a9, _ts(scopeName)); 
 }
 
 /**
  * Scope exit for profiler.
  */
-export function profilerExitScope(): any { 
+export function profilerExitScope(): void { 
 	return _in(0x00000000, 0xb39ca35c); 
 }
 
@@ -446,7 +446,7 @@ export function profilerIsRecording(): boolean {
  * @param handler
  * @param restricted
  */
-export function registerCommand(commandName: string, handler: any, restricted: boolean): any { 
+export function registerCommand(commandName: string, handler: any, restricted: boolean): void { 
 	return _in(0x00000000, 0x5fa79b0f, _ts(commandName), _mfr(handler), restricted); 
 }
 
@@ -454,7 +454,7 @@ export function registerCommand(commandName: string, handler: any, restricted: b
  * An internal function which allows the current resource's HLL script runtimes to receive state for the specified event.
  * @param eventName
  */
-export function registerResourceAsEventHandler(eventName: string): any { 
+export function registerResourceAsEventHandler(eventName: string): void { 
 	return _in(0x00000000, 0xd233a168, _ts(eventName)); 
 }
 
@@ -464,7 +464,7 @@ export function registerResourceAsEventHandler(eventName: string): any {
  * Removes a handler for changes to a state bag.
  * @param cookie
  */
-export function removeStateBagChangeHandler(cookie: number): any { 
+export function removeStateBagChangeHandler(cookie: number): void { 
 	return _in(0x00000000, 0xd36be661, cookie); 
 }
 
@@ -473,7 +473,7 @@ export function removeStateBagChangeHandler(cookie: number): any {
  * @param key
  * @param value
  */
-export function setResourceKvp(key: string, value: string): any { 
+export function setResourceKvp(key: string, value: string): void { 
 	return _in(0x00000000, 0x21c7a35b, _ts(key), _ts(value)); 
 }
 
@@ -482,7 +482,7 @@ export function setResourceKvp(key: string, value: string): any {
  * @param key
  * @param value
  */
-export function setResourceKvpFloat(key: string, value: number): any { 
+export function setResourceKvpFloat(key: string, value: number): void { 
 	return _in(0x00000000, 0x9add2938, _ts(key), _fv(value)); 
 }
 
@@ -491,7 +491,7 @@ export function setResourceKvpFloat(key: string, value: number): any {
  * @param key
  * @param value
  */
-export function setResourceKvpInt(key: string, value: number): any { 
+export function setResourceKvpInt(key: string, value: number): void { 
 	return _in(0x00000000, 0x06a2b1e8, _ts(key), value); 
 }
 
@@ -503,7 +503,7 @@ export function setResourceKvpInt(key: string, value: number): any {
  * @param valueLength
  * @param replicated
  */
-export function setStateBagValue(bagName: string, keyName: string, valueData: string, valueLength: number, replicated: boolean): any { 
+export function setStateBagValue(bagName: string, keyName: string, valueData: string, valueLength: number, replicated: boolean): void { 
 	return _in(0x00000000, 0x8d50e33a, _ts(bagName), _ts(keyName), _ts(valueData), valueLength, replicated); 
 }
 
@@ -517,7 +517,7 @@ export function startFindKvp(prefix: string): number {
  * @param eventPayload
  * @param payloadLength
  */
-export function triggerEventInternal(eventName: string, eventPayload: string, payloadLength: number): any { 
+export function triggerEventInternal(eventName: string, eventPayload: string, payloadLength: number): void { 
 	return _in(0x00000000, 0x91310870, _ts(eventName), _ts(eventPayload), payloadLength); 
 }
 
