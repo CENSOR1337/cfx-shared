@@ -10,10 +10,11 @@ export interface Vec3 {
 export type Vector = Vector3 | Vec3;
 
 export class Vector3 implements Vec3 {
-    public readonly type = "vec3";
-    public static readonly type = "vec3";
+	public readonly type = "vec3";
+	public static readonly type = "vec3";
 
 	public static readonly Zero: Vector3 = new Vector3(0, 0, 0);
+	public static readonly zero: Vector3 = new Vector3(0, 0, 0);
 
 	public static create(v1: Vec3 | number): Vector3 {
 		if (typeof v1 === "number") return new Vector3(v1, v1, v1);
@@ -39,7 +40,7 @@ export class Vector3 implements Vec3 {
 	 * ```
 	 */
 	public static fromArrays(primitives: [number, number, number][] | number[][]): Vector3[] {
-		return primitives.map(prim => new Vector3(prim[0], prim[1], prim[2]));
+		return primitives.map((prim) => new Vector3(prim[0], prim[1], prim[2]));
 	}
 
 	public static clone(v1: Vec3): Vector3 {
