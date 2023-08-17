@@ -1,13 +1,23 @@
 {
-	"name": "@cfx/shared",
+	"name": "cfx-shared",
 	"main": "dist/index.js",
-    "module": "dist/index.js",
-    "types": "dist/index.d.ts",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"version": "1.0.0",
 	"scripts": {
 		"build": "tsc",
-        "watch": "tsc -w",
+		"watch": "tsc -w",
 		"update": "node ./scripts/update.js",
-        "gen": "node ./scripts/generate.js"
+		"gen": "node ./scripts/generate.js"
+	},
+	"keywords": [
+		"fivem",
+		"cfx",
+		"cfx.re"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/CENSOR1337/cfx-client"
 	},
 	"author": "CENSOR_1337",
 	"license": "MIT",
