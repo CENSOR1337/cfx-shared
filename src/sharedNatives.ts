@@ -1,5 +1,5 @@
 
-import { Vector3 } from "./utils";
+import { Vector3 } from "cfx-shared";
 //@ts-ignore
 const Citizen = global.Citizen;
 //@ts-ignore

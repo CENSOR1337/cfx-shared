@@ -26,5 +26,8 @@
 		"@citizenfx/server": "latest",
 		"@types/node": "^20.4.0",
 		"typescript": "^5.1.6"
+	},
+	"dependencies": {
+		"cfx-shared": "^1.0.1"
 	}
 }
