@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { Native } = require("@cfx/natives/scripts/Native");
+const { Native } = require("cfx-natives/scripts/Native");
 
 const debugNatives = [
     "0x3FEF770D40960D5A",
@@ -11,11 +11,12 @@ const debugNatives = [
     "0x7B3703D2D32DFA18",
     "0xC906A7DAB05C8D2B",
     "0x8BDC7BFC57A81E76",
-    "0x9E82F0F362881B29"
+    "0x9E82F0F362881B29",
+    "0xCF143FB9"
 ]
 const bDebug = false;
 const header = `
-import { Vector3 } from "./utils";
+import { Vector3 } from "cfx-shared";
 //@ts-ignore
 const Citizen = global.Citizen;
 //@ts-ignore
@@ -95,6 +96,7 @@ function _mv(vector: any): Vector3 {
 	return Vector3.fromArray(vector);
 }`;
 
+
 function generateNatives() {
     const path = "./bin/natives.json";
     if (!fs.existsSync(path)) throw new Error(`File ${path} not found`);
@@ -111,7 +113,7 @@ function generateNatives() {
 
     // Sort by name
     allNatives.sort((a, b) => {
-        if (a.altName > b.altName) {
+        if (a.nativeName > b.nativeName) {
             return 1;
         } else {
             return -1;

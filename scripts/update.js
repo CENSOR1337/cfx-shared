@@ -24,7 +24,6 @@ const paramTypes = {
     "long": "long",
     "float": "float",
     "entity": "Entity",
-    "object": "Object",
     "entity*": "Entity",
     "cam": "Cam",
     "vector3*": "Vector3",
@@ -40,13 +39,11 @@ const paramTypes = {
 }
 
 function getNativeName(name) {
-    const isUnderscore = name.startsWith("_");
-    if (isUnderscore) {
-        name = name.substring(1);
-    }
-    const parts = name.split("_");
+    const parts = name.replace(/^_/, '').split('_');
+
     const firstPart = parts.shift().toLowerCase();
-    const rest = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join("");
+    const rest = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join('');
+
     return firstPart + rest;
 }
 
@@ -97,7 +94,7 @@ async function downloadCFXNatives() {
                 comment: native.description,
                 params: params,
                 results: results.length == 1 ? results[0] : `[${results.join(", ")}]`,
-                altName: getNativeName(native.name),
+                nativeName: getNativeName(native.name),
                 apiset: native.apiset
             });
         }
